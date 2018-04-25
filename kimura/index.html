@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div id="greeting-area">Hello world</div>
+  <script src="js/scripts.js"></script>
+  <script>
+  let greet = new Greeting();
+  // publicなのでアクセスできる
+  var str = greet.sayHello('ono');
+  document.getElementById('greeting-area').innerHTML = str;
+  // privateなのでエラーになる
+  console.log(greet.privateMethod());
+  </script>
+</body>
+</html>
