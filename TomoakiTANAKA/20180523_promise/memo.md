@@ -61,6 +61,9 @@ then(成功関数, 失敗関数)
 ```
 
 * allで並列に
+* allの中の処理が全部終わるまでまつ
+  * 終わったていうのは、promise.resolve()で
+  * resolveの中に、引数をいれることもできる
 
 ```
 # 例
@@ -79,11 +82,12 @@ Promise.all([func1, func2, func3]).then(function(results){
 
 ### 並列の時は順番きにしない？？
 
-ほげほげ
+* その通り
+* 並列処理の中で順番きにするなら、thenでつなぐ（もはや並列ではない）
 
 ### Promiseを使う意味は読みやすいからだけ？
 
-ほかわからず
+そのとおり。簡単にプログラム書くだけの仕組み
 
 ### 同期/非同期
 同期
@@ -94,4 +98,23 @@ Promise.all([func1, func2, func3]).then(function(results){
 つらつら書くと、順番が保証されない（処理がある）
 なので、順番を保証するために、コールバックを使う
 
+### async/awaitとの関係は
 
+Promiseの糖衣構文（syntac sugar）
+なので、Promiseわかってないと、そっちもわからず
+
+### EventEmitter
+これはPromiseとは別のはなし。node.jsの話。
+onClick(xxx)の仲間
+
+EventEmitterを継承することで、on / emitを使えるようになる。
+
+```
+on
+emit（イベント名、引数）
+```
+
+### frontend / backendの違い
+
+frontend = pure js ... 最初からwindowがイベントを持っているから、event emitterはない（というか最初からあるともいえる）
+server side = node.js ... windowがないからEventEmitterがある
