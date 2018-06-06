@@ -8,12 +8,19 @@
   <div id="greeting-area">Hello world</div>
   <script src="js/scripts.js"></script>
   <script>
-  let greet = new Greeting();
-  // publicなのでアクセスできる
-  var str = greet.sayHello('ono');
-  document.getElementById('greeting-area').innerHTML = str;
-  // privateなのでエラーになる
-  console.log(greet.privateMethod());
+  const asynchronous = async function(){
+    const klass = new AsyncSample();
+    const res = await klass.asyncMethod();
+    console.log(res);
+  };
+  asynchronous();
+    
+  const promise = Promise.resolve();
+  promise.then(function(){
+    return Promise.resolve(klass.asyncMethod());
+  })
+  .then(function(){
+  });
   </script>
 </body>
 </html>
