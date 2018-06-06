@@ -1,23 +1,12 @@
-/**
- * コンスタラクタ
-**/
-let Greeting = function(){
-  this.name = "kimura";
+'use strict';
+const AsyncSample = function(){};
+AsyncSample.prototype.sync = function(){
+  console.log('sync');
 };
-/**
- * 即時関数にしてメソッドを定義する
-**/
-(function(){
-  // public method
-  Greeting.prototype.sayHello = function(name) {
-    this.name = name;
-    return "Hello " + name;
-  };
-
-  // private method
-  privateMethod = function() {
-    //エラーになることが正しい
-  };
-})();
-
-
+AsyncSample.prototype.asyncMethod = async function(){
+  const timer = setInterval(function(){
+    console.log('async');
+    clearInterval(timer);
+    return 'test';
+  }, 1000);
+};
