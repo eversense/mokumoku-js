@@ -24,8 +24,13 @@ module.exports.audit = (event, context, callback, chrome) => {
   ]
   let messages = [];
 
+  # ループで複数URLに対してLighthouse関数実行
+  # lighthouse関数は同時に複数実行できない
+  # map/for等のループで実行すると、前の処理を待ってくれないのでarync/awaitを導入した
   async function runLighthouse() {
     for (let url of urls) {
+      # lighthouse関数のawait 
+      # Promiseの結果が返されるまで、async function内の処理(forループ)を一時停止する
       await lighthouse(url, opts, perfConfig).then(results => {
         delete results.artifacts;
         const reports = results.reportCategories.map(report => ({
