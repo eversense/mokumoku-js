@@ -25,8 +25,7 @@ function asyncFunction() {
 
 // 中身がPromiseかを確認したかった…
 let obj = asyncFunction();
-typeof(obj); // Object
-console.log(Object.prototype.toString.apply( obj )); // [object Object]
+console.log(obj.constructor)
 
 asyncFunction().then(function (value) {
   // 非同期処理成功
@@ -39,22 +38,19 @@ asyncFunction().then(function (value) {
 
 // ===================================================
 
-// async awaitってこうつかいたいけどエラーがでてる
 // 
-// VM168:2 Uncaught (in promise) ReferenceError: resolve is not defined
-//     at asyncFunc1 (<anonymous>:2:3)
-//     at <anonymous>:11:1
-
+// awaitのサンプル
+// 
 async function asyncFunc1() {
-  resolve("asyncFunc1");
+  return "asyncFunc1";
 }
 
 async function asyncFunc2() {
   var result = await asyncFunc1();
   console.log(result);
-  resolve("asyncFunc2");
+  return "asyncFunc2";
 }
 
-asyncFunc1().then(result => {
+asyncFunc2().then(result => {
   console.log(result);
 });

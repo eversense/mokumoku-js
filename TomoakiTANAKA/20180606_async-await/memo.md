@@ -17,10 +17,49 @@ async function sample() {
 }
 ```
 
-#### async/awaitとの関係は
+例：
+
+## async/awaitとPromiseの関係
 
 Promiseの糖衣構文（syntac sugar）
 なので、Promiseわかってないと、そっちもわからず
+
+## エラー
+### Referenceエラー
+* Promiseとasyncがごっちゃになってる
+* asyncはresolveでなく、return
+
+```
+// async awaitってこうつかいたいけどエラーがでてる
+// 
+// VM168:2 Uncaught (in promise) ReferenceError: resolve is not defined
+//     at asyncFunc1 (<anonymous>:2:3)
+//     at <anonymous>:11:1
+
+async function asyncFunc1() {
+  resolve("asyncFunc1");
+}
+
+async function asyncFunc2() {
+  var result = await asyncFunc1();
+  console.log(result);
+  resolve("asyncFunc2");
+}
+
+asyncFunc1().then(result => {
+  console.log(result);
+});
+```
+
+### クラスの確認
+* constructorを使えばOK
+
+```
+// 中身がPromiseかを確認したかった…
+let obj = asyncFunction();
+typeof(obj); // Object
+console.log(Object.prototype.toString.apply( obj )); // [object Object]
+```
 
 ## 参考文献
 一問一答形式で非常によくまとまっている
