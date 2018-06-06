@@ -24,9 +24,10 @@ module.exports.audit = (event, context, callback, chrome) => {
   ]
   let messages = [];
 
-  // ループで複数URLに対してLighthouse関数実行
-  // lighthouse関数は同時に複数実行できない
-  // map/for等のループで実行すると、前の処理を待ってくれないのでarync/awaitを導入した
+  // ループで複数URLに対してLighthouse関数実行する
+
+  // lighthouse関数は並列の非同期処理ができない
+  // map/for等のループで実行すると、前の処理を待ってくれないので、async/awaitを使って連続した非同期処理を実装
   async function runLighthouse() {
     for (let url of urls) {
       // lighthouse関数のawait 
