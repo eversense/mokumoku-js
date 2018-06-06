@@ -29,6 +29,10 @@ module.exports.audit = (event, context, callback, chrome) => {
   // lighthouse関数は並列の非同期処理ができない
   // map/for等のループで実行すると、前の処理を待ってくれないので、async/awaitを使って連続した非同期処理を実装
   async function runLighthouse() {
+    const test = urls.map(function(url){
+      return 'hoge';
+    });
+    console.log(test);
     for (let url of urls) {
       // lighthouse関数のawait
       // lighthouse関数はpromiseを返す see: https://github.com/GoogleChrome/lighthouse/blob/9823a6579e59b8ea86620bf3dec59a7fd66110c4/lighthouse-core/runner.js
